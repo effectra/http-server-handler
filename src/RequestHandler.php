@@ -2,7 +2,6 @@
 
 namespace Effectra\Http\Server;
 
-use Effectra\Http\Message\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -14,18 +13,17 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class RequestHandler implements RequestHandlerInterface
 {
-    /**
-     * @var array The stack of middlewares.
-     */
-    private $stack = [];
+
 
     /**
      * RequestHandler constructor.
-     *
+     * @param ResponseInterface $response The response passed after middlewares
      * @param array $stack The stack of middlewares.
      */
-    public function __construct(array $stack)
-    {
+    public function __construct(
+        protected ResponseInterface $response,
+        protected array $stack = []
+    ) {
         $this->stack = $stack;
     }
 
@@ -42,6 +40,6 @@ class RequestHandler implements RequestHandlerInterface
             return $middleware->process($request, $this);
         }
 
-        return new Response();
+        return $this->response;
     }
 }

@@ -3,3 +3,4 @@
 
 # Ignore Composer lock file
 composer.lock
+.gitignore

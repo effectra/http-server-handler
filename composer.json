@@ -17,6 +17,6 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^8.0.2",
-        "psr/http-server-handler": "^1.0@dev"
+        "psr/http-server-handler": "^1.0"
     }
 }

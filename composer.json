@@ -1,6 +1,6 @@
 {
     "name": "effectra/http-server-handler",
-    "description": "The Effectra HTTP Handler package.",
+    "description": "The Effectra HTTP Server Handler package.",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -16,7 +16,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^8.0.2",
         "psr/http-server-handler": "^1.0"
     }
 }

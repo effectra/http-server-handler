@@ -13,7 +13,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class RequestHandler implements RequestHandlerInterface
 {
-
+    private ?ServerRequestInterface $lastRequest = null;
 
     /**
      * RequestHandler constructor.
@@ -35,11 +35,23 @@ class RequestHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->lastRequest = $request;
         if (count($this->stack) > 0) {
             $middleware = array_shift($this->stack);
-            return $middleware->process($request, $this);
+            $response = $middleware->process($request, $this);
+            return $response;
         }
 
         return $this->response;
+    }
+
+    /**
+     * Get the last request processed by the middleware stack.
+     *
+     * @return ServerRequestInterface|null The last request or null if no request has been processed.
+     */
+    public function getLastRequest(): ?ServerRequestInterface
+    {
+        return $this->lastRequest;
     }
 }
